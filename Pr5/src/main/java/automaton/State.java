@@ -17,16 +17,20 @@ public enum State {
     public State next(char symbol) {
         switch (this) {
             case S0:
-                return symbol == 'T' ? S1 : S0;
+                return restart(symbol);
             case S1:
-                return symbol == 'E' ? S2 : S0;
+                return symbol == 'E' ? S2 : restart(symbol);
             case S2:
-                return symbol == 'S' ? S3 : S0;
+                return symbol == 'S' ? S3 : restart(symbol);
             case S3:
                 return symbol == 'T' ? F : S0;
             default:
                 return F;
         }
+    }
+
+    private static State restart(char symbol) {
+        return symbol == 'T' ? S1 : S0;
     }
 
     @Override
